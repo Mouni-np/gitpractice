@@ -2,9 +2,9 @@
 
 echo "please enter ur username:"
 
-read-s username
+read -s username
 
 echo "username entered is $username"
- echo enter ur passwd"
- read -s passwd
+echo "enter ur passwd"
+read -s passwd
 entered passwd is $passwd
