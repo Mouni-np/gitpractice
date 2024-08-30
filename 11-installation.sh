@@ -17,3 +17,4 @@ then
     dnf install git -y
 else
     echo "already installed"
+fi
