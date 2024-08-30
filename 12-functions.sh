@@ -2,6 +2,14 @@
 
 userid=$(id -u)
 
+check_root(){
+    if [ $userid -ne 0 ]
+then 
+    echo "run script with root priveleges"
+    exit 1
+fi
+
+}
  validate(){
     if [ $1 -ne 0 ]
     then
@@ -11,15 +19,9 @@ userid=$(id -u)
     fi
 }
 
-if [ $userid -ne 0 ]
-then 
-    echo "run script with root priveleges"
-    exit 1
-fi
+check_root 
 
 dnf list installed git
-
-validate $? "listing git"
 
 if [ $? -ne 0 ]
 then 
