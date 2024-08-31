@@ -14,7 +14,7 @@ userid=$(id -u)
 check_root(){
     if [ $userid -ne 0 ]
     then 
-        echo -e "$R run script with root priveleges $N" &>>$LOG_FOLDER
+        echo -e "$R run script with root priveleges $N" &>>$LOG_FILE
         exit 1
     fi
 
@@ -22,9 +22,9 @@ check_root(){
  validate(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 is $R failed $N" &>>$LOG_FOLDER
+        echo -e "$2 is $R failed $N" &>>$LOG_FILE
     else
-        echo -e "$2 is $G success $N" &>>$LOG_FOLDER
+        echo -e "$2 is $G success $N" &>>$LOG_FILE
     fi
 }
 
@@ -42,13 +42,13 @@ fi
 
 for package in $@
 do
-    dnf list installed $package &>>$LOG_FOLDER
+    dnf list installed $package &>>$LOG_FILE
     if [ $? -ne 0 ]
     then
-        echo "$package is not installed, going to install" &>>$LOG_FOLDER
-        dnf install $package -y &>>$LOG_FOLDER
-        validate $? "installing $package" &>>$LOG_FOLDER
+        echo "$package is not installed, going to install" &>>$LOG_FILE
+        dnf install $package -y &>>$LOG_FILE
+        validate $? "installing $package" &>>$LOG_FILE
     else
-        echo -e "$Y $package is already intsalled $N " &>>$LOG_FOLDER
+        echo -e "$Y $package is already intsalled $N " &>>$LOG_FILE
     fi
 done
