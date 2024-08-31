@@ -33,7 +33,7 @@ usage(){
     exit 1
 }
 
-echo "script started executing at: $(date)" &>>LOG_FILE
+echo "script started executing at: $(date)" #&>>LOG_FILE
 
 check_root 
 
