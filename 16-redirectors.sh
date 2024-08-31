@@ -14,7 +14,7 @@ userid=$(id -u)
 check_root(){
     if [ $userid -ne 0 ]
     then 
-        echo -e "$R run script with root priveleges $N" &>>$LOG_FILE
+        echo -e "$R run script with root priveleges $N" | tee -a  &>>$LOG_FILE
         exit 1
     fi
 
@@ -22,9 +22,9 @@ check_root(){
  validate(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 is $R failed $N" &>>$LOG_FILE
+        echo -e "$2 is $R failed $N" | tee -a &>>$LOG_FILE
     else
-        echo -e "$2 is $G success $N" &>>$LOG_FILE
+        echo -e "$2 is $G success $N" | tee -a &>>$LOG_FILE
     fi
 }
 
@@ -33,7 +33,7 @@ usage(){
     exit 1
 }
 
-echo "script started executing at: $(date)" &>>LOG_FILE
+echo "script started executing at: $(date)" | tee -a &>>$LOG_FILE
 
 check_root 
 
@@ -47,10 +47,10 @@ do
     dnf list installed $package &>>$LOG_FILE
     if [ $? -ne 0 ]
     then
-        echo "$package is not installed, going to install" &>>$LOG_FILE
+        echo "$package is not installed, going to install" | tee -a &>>$LOG_FILE
         dnf install $package -y &>>$LOG_FILE
         validate $? "installing $package" &>>$LOG_FILE
     else
-        echo -e "$Y $package is already intsalled $N " &>>$LOG_FILE
+        echo -e "$Y $package is already intsalled $N " | tee -a &>>$LOG_FILE
     fi
 done
