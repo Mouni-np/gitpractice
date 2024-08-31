@@ -14,7 +14,7 @@ userid=$(id -u)
 check_root(){
     if [ $userid -ne 0 ]
     then 
-        echo "$R run script with root priveleges $N" &>>$LOG_FOLDER
+        echo -e "$R run script with root priveleges $N" &>>$LOG_FOLDER
         exit 1
     fi
 
@@ -28,7 +28,17 @@ check_root(){
     fi
 }
 
+usage(){
+    echo -e " $R usage: sudo sh 16-redirectors.sh package1 package2...$N "
+    exit 1
+}
+
 check_root 
+
+if [ $# -eq 0 ]
+then 
+    usage
+fi
 
 for package in $@
 do
@@ -39,6 +49,6 @@ do
         dnf install $package -y &>>$LOG_FOLDER
         validate $? "installing $package" &>>$LOG_FOLDER
     else
-        echo "$Y $package is already intsalled $N " &>>$LOG_FOLDER
+        echo -e "$Y $package is already intsalled $N " &>>$LOG_FOLDER
     fi
 done
